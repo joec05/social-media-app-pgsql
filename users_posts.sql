@@ -17,7 +17,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: bookmarks_list; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: bookmarks_list; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA bookmarks_list;
@@ -26,7 +26,7 @@ CREATE SCHEMA bookmarks_list;
 ALTER SCHEMA bookmarks_list OWNER to postgres;
 
 --
--- Name: comments_list; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: comments_list; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA comments_list;
@@ -35,7 +35,7 @@ CREATE SCHEMA comments_list;
 ALTER SCHEMA comments_list OWNER to postgres;
 
 --
--- Name: likes_list; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: likes_list; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA likes_list;
@@ -44,7 +44,7 @@ CREATE SCHEMA likes_list;
 ALTER SCHEMA likes_list OWNER to postgres;
 
 --
--- Name: posts_list; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: posts_list; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA posts_list;
@@ -103,7 +103,7 @@ begin
 	and not is_blocked_user($2, p.sender, username, ip, port, password)
 	and not is_blocked_user(p.sender, $2, username, ip, port, password) 
 	and not is_private_user($2, p.sender, username, ip, port, password)
-	and not is_exists_user($2, p.sender, username, ip, port, password)
+	and is_exists_user($2, p.sender, username, ip, port, password)
 	order by p.upload_time desc offset $3 limit $4;
 end;
 $_$;
@@ -234,7 +234,7 @@ begin
 	and not is_blocked_user($2, p.sender, username, ip, port, password)
 	and not is_blocked_user(p.sender, $2, username, ip, port, password)
 	and not is_private_user($2, p.sender, username, ip, port, password)
-	and not is_exists_user($2, p.sender, username, ip, port, password)
+	and is_exists_user($2, p.sender, username, ip, port, password)
 	order by p.upload_time desc offset $3 limit $4;
 end;
 $_$;
@@ -567,6 +567,7 @@ ALTER TABLE posts_list.posts_data OWNER TO postgres;
 --
 
 COPY bookmarks_list.comments (user_id, comment_id, sender, bookmarked_time) FROM stdin;
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	fd49fff4-1709-446a-8b64-0fa19f61aff3	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T18:47:58.773+07:00
 \.
 
 
@@ -575,6 +576,9 @@ COPY bookmarks_list.comments (user_id, comment_id, sender, bookmarked_time) FROM
 --
 
 COPY bookmarks_list.posts (user_id, post_id, sender, bookmarked_time) FROM stdin;
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2754c2ea-4dd4-4e1e-93eb-fd644f693fc5	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T14:53:33.054+07:00
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	4166e8ad-6218-4c02-9e58-5482df330fdf	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	2023-11-26T18:56:52.149+07:00
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	ccf835e2-eea8-4055-942b-97bf13aba39e	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T21:15:02.688+07:00
 \.
 
 
@@ -583,6 +587,14 @@ COPY bookmarks_list.posts (user_id, post_id, sender, bookmarked_time) FROM stdin
 --
 
 COPY comments_list.comments_data (comment_id, type, content, sender, upload_time, medias_datas, parent_post_type, parent_post_id, parent_post_sender, deleted) FROM stdin;
+ee2e54c1-5ea4-4089-8f1d-05544d452e2c	comment	pk2	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:18.459Z	[]	post	33528665-7649-4de4-b973-a82c33315e78	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
+fd49fff4-1709-446a-8b64-0fa19f61aff3	comment	ok3	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:23.405Z	[]	comment	d7f75f76-c88b-491a-9626-39412853bd6f	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
+842b31cc-f388-4fd8-a77a-96e533cee06c	comment	lork	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:28.557Z	[]	comment	fd49fff4-1709-446a-8b64-0fa19f61aff3	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
+d7f75f76-c88b-491a-9626-39412853bd6f	comment	ok2	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:10.616Z	[]	post	2754c2ea-4dd4-4e1e-93eb-fd644f693fc5	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	t
+c8110200-6d10-4670-888d-a802ac96e046	comment	pep talk	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:10:20.581Z	[]	post	7e801c97-2dd2-4344-bc06-2a9bf3756428	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
+4552de13-3004-408f-b9e8-0127b6382c96	comment	frocg	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:10:59.792Z	[]	post	3abb1ba1-e835-4625-9832-5cea326e617b	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	f
+c06e546c-409e-4c56-b830-76fa0b61025e	comment	hutuer	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:11:25.657Z	[]	post	3abb1ba1-e835-4625-9832-5cea326e617b	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	f
+5c07aa63-4e61-4f7e-93dd-fb3929ae44c2	comment	pam	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:12:02.177Z	[]	comment	c06e546c-409e-4c56-b830-76fa0b61025e	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
 \.
 
 
@@ -591,6 +603,7 @@ COPY comments_list.comments_data (comment_id, type, content, sender, upload_time
 --
 
 COPY likes_list.comments (user_id, comment_id) FROM stdin;
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	fd49fff4-1709-446a-8b64-0fa19f61aff3
 \.
 
 
@@ -599,6 +612,7 @@ COPY likes_list.comments (user_id, comment_id) FROM stdin;
 --
 
 COPY likes_list.posts (user_id, post_id) FROM stdin;
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2754c2ea-4dd4-4e1e-93eb-fd644f693fc5
 \.
 
 
@@ -607,6 +621,15 @@ COPY likes_list.posts (user_id, post_id) FROM stdin;
 --
 
 COPY posts_list.posts_data (post_id, type, content, sender, upload_time, medias_datas, deleted) FROM stdin;
+2754c2ea-4dd4-4e1e-93eb-fd644f693fc5	post	ok	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:00.282Z	[]	f
+33528665-7649-4de4-b973-a82c33315e78	post	pk	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:04.927Z	[]	f
+ccf835e2-eea8-4055-942b-97bf13aba39e	post	@developer pakyi	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T11:31:16.754Z	[]	f
+4166e8ad-6218-4c02-9e58-5482df330fdf	post	lo	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	2023-11-26T11:56:47.095Z	[]	f
+3abb1ba1-e835-4625-9832-5cea326e617b	post	guitar 	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	2023-11-26T15:09:30.643Z	[{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/5a05c358-49f6-41fd-b965-7303174a0706/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"5a05c358-49f6-41fd-b965-7303174a0706"}]	f
+00850e38-8fd2-42db-955f-a5b1d7eae9d4	post	ffff	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-27T15:00:36.440Z	[]	f
+a193f3b8-d78b-4b40-9a22-59a5ae9f6578	post		ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-27T15:06:19.604Z	[]	t
+10e95832-6762-4bf3-9d0d-1de6047111b8	post	in the place 	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-27T23:51:58.531Z	[]	f
+7e801c97-2dd2-4344-bc06-2a9bf3756428	post	PILLOWTALK	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:09:57.438Z	[]	f
 \.
 
 

@@ -17,7 +17,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: hashtags; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: hashtags; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA hashtags;

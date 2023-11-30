@@ -17,7 +17,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: group_messages; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: group_messages; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA group_messages;
@@ -26,7 +26,7 @@ CREATE SCHEMA group_messages;
 ALTER SCHEMA group_messages OWNER to postgres;
 
 --
--- Name: group_profile; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: group_profile; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA group_profile;
@@ -35,7 +35,7 @@ CREATE SCHEMA group_profile;
 ALTER SCHEMA group_profile OWNER to postgres;
 
 --
--- Name: private_messages; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: private_messages; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA private_messages;
@@ -44,7 +44,7 @@ CREATE SCHEMA private_messages;
 ALTER SCHEMA private_messages OWNER to postgres;
 
 --
--- Name: users_chats; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: users_chats; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA users_chats;

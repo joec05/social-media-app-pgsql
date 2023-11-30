@@ -17,7 +17,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: basic_data; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: basic_data; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA basic_data;
@@ -26,7 +26,7 @@ CREATE SCHEMA basic_data;
 ALTER SCHEMA basic_data OWNER to postgres;
 
 --
--- Name: blocked_users; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: blocked_users; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA blocked_users;
@@ -35,7 +35,7 @@ CREATE SCHEMA blocked_users;
 ALTER SCHEMA blocked_users OWNER to postgres;
 
 --
--- Name: follow_requests_users; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: follow_requests_users; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA follow_requests_users;
@@ -44,7 +44,7 @@ CREATE SCHEMA follow_requests_users;
 ALTER SCHEMA follow_requests_users OWNER to postgres;
 
 --
--- Name: follow_users; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: follow_users; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA follow_users;
@@ -53,7 +53,7 @@ CREATE SCHEMA follow_users;
 ALTER SCHEMA follow_users OWNER to postgres;
 
 --
--- Name: muted_users; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: muted_users; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA muted_users;
@@ -62,7 +62,7 @@ CREATE SCHEMA muted_users;
 ALTER SCHEMA muted_users OWNER to postgres;
 
 --
--- Name: sensitive_data; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: sensitive_data; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA sensitive_data;
@@ -378,7 +378,7 @@ CREATE TABLE muted_users.mute_history (
 ALTER TABLE muted_users.mute_history OWNER TO postgres;
 
 --
--- Name: user_password; Type: TABLE; Schema: sensitive_data; Owner: joec05
+-- Name: user_password; Type: TABLE; Schema: sensitive_data; Owner: postgres
 --
 
 CREATE TABLE sensitive_data.user_password (
@@ -430,7 +430,7 @@ COPY muted_users.mute_history (user_id, muted_id) FROM stdin;
 
 
 --
--- Data for Name: user_password; Type: TABLE DATA; Schema: sensitive_data; Owner: joec05
+-- Data for Name: user_password; Type: TABLE DATA; Schema: sensitive_data; Owner: postgres
 --
 
 COPY sensitive_data.user_password (user_id, password) FROM stdin;
@@ -478,7 +478,7 @@ ALTER TABLE ONLY muted_users.mute_history
 
 
 --
--- Name: user_password user_password_constraints; Type: CONSTRAINT; Schema: sensitive_data; Owner: joec05
+-- Name: user_password user_password_constraints; Type: CONSTRAINT; Schema: sensitive_data; Owner: postgres
 --
 
 ALTER TABLE ONLY sensitive_data.user_password
