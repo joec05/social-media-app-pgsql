@@ -17,40 +17,40 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: bookmarks_list; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: bookmarks_list; Type: SCHEMA; Schema: -; Owner: joec05
 --
 
 CREATE SCHEMA bookmarks_list;
 
 
-ALTER SCHEMA bookmarks_list OWNER to postgres;
+ALTER SCHEMA bookmarks_list OWNER TO joec05;
 
 --
--- Name: comments_list; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: comments_list; Type: SCHEMA; Schema: -; Owner: joec05
 --
 
 CREATE SCHEMA comments_list;
 
 
-ALTER SCHEMA comments_list OWNER to postgres;
+ALTER SCHEMA comments_list OWNER TO joec05;
 
 --
--- Name: likes_list; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: likes_list; Type: SCHEMA; Schema: -; Owner: joec05
 --
 
 CREATE SCHEMA likes_list;
 
 
-ALTER SCHEMA likes_list OWNER to postgres;
+ALTER SCHEMA likes_list OWNER TO joec05;
 
 --
--- Name: posts_list; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: posts_list; Type: SCHEMA; Schema: -; Owner: joec05
 --
 
 CREATE SCHEMA posts_list;
 
 
-ALTER SCHEMA posts_list OWNER to postgres;
+ALTER SCHEMA posts_list OWNER TO joec05;
 
 --
 -- Name: dblink; Type: EXTENSION; Schema: -; Owner: -
@@ -296,7 +296,7 @@ CREATE FUNCTION public.fetch_searched_comments(currentid text, searchedtext text
 declare 
 begin
 	return query select row_to_json(p) as post_data from comments_list.comments_data as p
-	where p.content like '%' || lower($2) || '%' and not is_muted_user($1, p.sender, username, ip, port, password)
+	where lower(p.content) like '%' || lower($2) || '%' and not is_muted_user($1, p.sender, username, ip, port, password)
 	and not is_blocked_user($1, p.sender, username, ip, port, password)
 	and not is_blocked_user(p.sender, $1, username, ip, port, password) 
 	and not is_private_user($1, p.sender, username, ip, port, password)
@@ -319,7 +319,7 @@ CREATE FUNCTION public.fetch_searched_posts(currentid text, searchedtext text, c
 declare 
 begin
 	return query select row_to_json(p) as post_data from posts_list.posts_data as p
-	where p.content like '%' || lower($2) || '%' and not is_muted_user($1, p.sender, username, ip, port, password)
+	where lower(p.content) like '%' || lower($2) || '%' and not is_muted_user($1, p.sender, username, ip, port, password)
 	and not is_blocked_user($1, p.sender, username, ip, port, password)
 	and not is_blocked_user(p.sender, $1, username, ip, port, password) 
 	and not is_private_user($1, p.sender, username, ip, port, password)
@@ -568,6 +568,10 @@ ALTER TABLE posts_list.posts_data OWNER TO postgres;
 
 COPY bookmarks_list.comments (user_id, comment_id, sender, bookmarked_time) FROM stdin;
 ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	fd49fff4-1709-446a-8b64-0fa19f61aff3	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T18:47:58.773+07:00
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	3f3c1cb5-0e4b-41bb-ade1-3610e2e29f06	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:09:32.624+07:00
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	3f3c1cb5-0e4b-41bb-ade1-3610e2e29f06	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:36:38.049+07:00
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	5c07aa63-4e61-4f7e-93dd-fb3929ae44c2	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:36:45.708+07:00
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	c06e546c-409e-4c56-b830-76fa0b61025e	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:36:50.153+07:00
 \.
 
 
@@ -579,6 +583,9 @@ COPY bookmarks_list.posts (user_id, post_id, sender, bookmarked_time) FROM stdin
 ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2754c2ea-4dd4-4e1e-93eb-fd644f693fc5	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T14:53:33.054+07:00
 f10d6d78-77ef-4cc5-a19a-11ca023e57a4	4166e8ad-6218-4c02-9e58-5482df330fdf	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	2023-11-26T18:56:52.149+07:00
 f10d6d78-77ef-4cc5-a19a-11ca023e57a4	ccf835e2-eea8-4055-942b-97bf13aba39e	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T21:15:02.688+07:00
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	b91bd8f6-2ccf-4eaa-946c-d14d21741547	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:09:29.715+07:00
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	b91bd8f6-2ccf-4eaa-946c-d14d21741547	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:36:36.290+07:00
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	11e4bfa7-73dd-47ed-a40f-dfe677fec679	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T21:33:32.165+07:00
 \.
 
 
@@ -595,6 +602,8 @@ c8110200-6d10-4670-888d-a802ac96e046	comment	pep talk	ea0ba766-8fab-42aa-ad3d-6c
 4552de13-3004-408f-b9e8-0127b6382c96	comment	frocg	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:10:59.792Z	[]	post	3abb1ba1-e835-4625-9832-5cea326e617b	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	f
 c06e546c-409e-4c56-b830-76fa0b61025e	comment	hutuer	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:11:25.657Z	[]	post	3abb1ba1-e835-4625-9832-5cea326e617b	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	f
 5c07aa63-4e61-4f7e-93dd-fb3929ae44c2	comment	pam	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:12:02.177Z	[]	comment	c06e546c-409e-4c56-b830-76fa0b61025e	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
+1dc772f5-a257-4009-895c-1178640d21b7	comment	exactly bro	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:39:24.509Z	[]	post	3abb1ba1-e835-4625-9832-5cea326e617b	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	f
+3f3c1cb5-0e4b-41bb-ade1-3610e2e29f06	comment	wow	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:39:39.042Z	[]	comment	1dc772f5-a257-4009-895c-1178640d21b7	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
 \.
 
 
@@ -604,6 +613,11 @@ c06e546c-409e-4c56-b830-76fa0b61025e	comment	hutuer	ea0ba766-8fab-42aa-ad3d-6cd5
 
 COPY likes_list.comments (user_id, comment_id) FROM stdin;
 ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	fd49fff4-1709-446a-8b64-0fa19f61aff3
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	ee2e54c1-5ea4-4089-8f1d-05544d452e2c
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	3f3c1cb5-0e4b-41bb-ade1-3610e2e29f06
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	1dc772f5-a257-4009-895c-1178640d21b7
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	5c07aa63-4e61-4f7e-93dd-fb3929ae44c2
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	c06e546c-409e-4c56-b830-76fa0b61025e
 \.
 
 
@@ -613,6 +627,12 @@ ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	fd49fff4-1709-446a-8b64-0fa19f61aff3
 
 COPY likes_list.posts (user_id, post_id) FROM stdin;
 ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2754c2ea-4dd4-4e1e-93eb-fd644f693fc5
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	10e95832-6762-4bf3-9d0d-1de6047111b8
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	00850e38-8fd2-42db-955f-a5b1d7eae9d4
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	b91bd8f6-2ccf-4eaa-946c-d14d21741547
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	3abb1ba1-e835-4625-9832-5cea326e617b
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	11e4bfa7-73dd-47ed-a40f-dfe677fec679
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	b7b488ea-de39-46c6-bb97-9d09141ac75c
 \.
 
 
@@ -630,6 +650,19 @@ ccf835e2-eea8-4055-942b-97bf13aba39e	post	@developer pakyi	ea0ba766-8fab-42aa-ad
 a193f3b8-d78b-4b40-9a22-59a5ae9f6578	post		ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-27T15:06:19.604Z	[]	t
 10e95832-6762-4bf3-9d0d-1de6047111b8	post	in the place 	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-27T23:51:58.531Z	[]	f
 7e801c97-2dd2-4344-bc06-2a9bf3756428	post	PILLOWTALK	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:09:57.438Z	[]	f
+04686e3e-c4b4-4219-8e51-085abd466aaf	post		cef86a8a-c06a-4812-ac3d-e9aee4fd7b19	2023-12-01T14:25:23.233Z	[{"mediaType":"video","url":"https://firebasestorage.googleapis.com/v0/b/flutter-social-media-app-7aac7.appspot.com/o/videos%2Fcef86a8a-c06a-4812-ac3d-e9aee4fd7b19%2F8de7dad5-3fab-4c27-83fa-83087dadf1cf?alt=media&token=742f505c-efa3-44ce-bbcf-edbf3609da4f","storagePath":"/cef86a8a-c06a-4812-ac3d-e9aee4fd7b19/8de7dad5-3fab-4c27-83fa-83087dadf1cf"}]	f
+9b2ffa6e-55df-4e5e-ab54-0f9303e3528b	post	pol	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T14:45:18.663Z	[{"mediaType":"video","url":"https://firebasestorage.googleapis.com/v0/b/flutter-social-media-app-7aac7.appspot.com/o/videos%2Fea0ba766-8fab-42aa-ad3d-6cd5b0e18eac%2F91f81c72-a4ee-4adb-8298-6530889ccd26?alt=media&token=9543d5cc-6e63-4663-ba3c-195211bfc8f2","storagePath":"/ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac/91f81c72-a4ee-4adb-8298-6530889ccd26"}]	t
+b91bd8f6-2ccf-4eaa-946c-d14d21741547	post	The UEFA Europa League (previously known as the UEFA Cup, abbreviated as UEL, or sometimes, UEFA EL) is an annual football club competition organised since 1971 by the Union of European Football Associations (UEFA) for eligible European football clubs. It is the second-tier competition of European c	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T13:59:04.620Z	[]	f
+3bdd7123-e18b-4e7a-84a2-c2af27bce782	post	hello, my name is ioem.\n\nThe UEFA Europa League is an annual football club competition organised since 1971 by the Union of European Football Associations for eligible European football clubs. It is the 	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T09:20:21.264Z	[]	f
+5e290c95-4dc2-4a22-8ea8-d7a9db13a68c	post	The UEFA Europa League is an annual football club competition organised since 1971 by the Union of European Football Associations for eligible European football clubs. It is the \n\nThe UEFA Europa League is an annual football club competition organised since 1971 by the Union of European Football Ass	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T11:16:16.162Z	[{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/1afdb1b1-6ac8-4a3a-84b7-f681944effe0/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"1afdb1b1-6ac8-4a3a-84b7-f681944effe0"}]	f
+1dc74b2c-b8a6-49ef-befb-0b0a6e5db294	post	this is a posr	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T11:39:40.538Z	[]	f
+11e4bfa7-73dd-47ed-a40f-dfe677fec679	post	bencong but they t\n\n#one\n\n#two\n\n#three\n\n#four\n\n#five	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:26:54.530Z	[]	f
+cd6a7c94-7c9d-4851-9355-aa3c057da7c7	post	#two is 2	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:51:59.367Z	[]	f
+7bbed87b-185b-484c-b234-df1b36820a2b	post	#OneDirection is best band ever	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:53:42.559Z	[]	f
+b7b488ea-de39-46c6-bb97-9d09141ac75c	post	#Pillowtalk is best song ever	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:53:57.582Z	[]	f
+fe8adbfd-7f30-47be-8853-9309e8565032	post	#DuskTillDawn is iconic	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:54:16.420Z	[]	f
+c21e6926-fbf2-4aaa-83f9-13ae2cce7c0e	post	#Westlife is nostalgic	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:54:27.285Z	[]	f
+f3bfd6c9-01a1-4710-9c6e-3a466f18fbf9	post	#Eminem is king of rap	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:54:41.399Z	[]	f
 \.
 
 
