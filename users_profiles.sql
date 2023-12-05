@@ -23,7 +23,7 @@ SET row_security = off;
 CREATE SCHEMA basic_data;
 
 
-ALTER SCHEMA basic_data OWNER to postgres;
+ALTER SCHEMA basic_data OWNER TO postgres;
 
 --
 -- Name: blocked_users; Type: SCHEMA; Schema: -; Owner: postgres
@@ -32,7 +32,7 @@ ALTER SCHEMA basic_data OWNER to postgres;
 CREATE SCHEMA blocked_users;
 
 
-ALTER SCHEMA blocked_users OWNER to postgres;
+ALTER SCHEMA blocked_users OWNER TO postgres;
 
 --
 -- Name: follow_requests_users; Type: SCHEMA; Schema: -; Owner: postgres
@@ -41,7 +41,7 @@ ALTER SCHEMA blocked_users OWNER to postgres;
 CREATE SCHEMA follow_requests_users;
 
 
-ALTER SCHEMA follow_requests_users OWNER to postgres;
+ALTER SCHEMA follow_requests_users OWNER TO postgres;
 
 --
 -- Name: follow_users; Type: SCHEMA; Schema: -; Owner: postgres
@@ -50,7 +50,7 @@ ALTER SCHEMA follow_requests_users OWNER to postgres;
 CREATE SCHEMA follow_users;
 
 
-ALTER SCHEMA follow_users OWNER to postgres;
+ALTER SCHEMA follow_users OWNER TO postgres;
 
 --
 -- Name: muted_users; Type: SCHEMA; Schema: -; Owner: postgres
@@ -59,7 +59,7 @@ ALTER SCHEMA follow_users OWNER to postgres;
 CREATE SCHEMA muted_users;
 
 
-ALTER SCHEMA muted_users OWNER to postgres;
+ALTER SCHEMA muted_users OWNER TO postgres;
 
 --
 -- Name: sensitive_data; Type: SCHEMA; Schema: -; Owner: postgres
@@ -68,7 +68,7 @@ ALTER SCHEMA muted_users OWNER to postgres;
 CREATE SCHEMA sensitive_data;
 
 
-ALTER SCHEMA sensitive_data OWNER to postgres;
+ALTER SCHEMA sensitive_data OWNER TO postgres;
 
 --
 -- Name: fetch_follow_requests_from(text, integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
@@ -107,6 +107,28 @@ $_$;
 
 
 ALTER FUNCTION public.fetch_follow_requests_to(currentid text, currentlength integer, paginationlimit integer) OWNER TO postgres;
+
+--
+-- Name: fetch_most_popular_users(text, integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.fetch_most_popular_users(currentid text, paginationlimit integer) RETURNS TABLE(user_id text)
+    LANGUAGE plpgsql
+    AS $_$
+declare 
+begin
+	return query 
+	SELECT followed_id from follow_users.follow_history as f
+	where not is_blocked_user($1, f.followed_id)
+	and not is_blocked_user(f.followed_id, $1) and is_exists_user($1, f.followed_id)
+	group by f.followed_id
+	order by count(f.followed_id) offset 0 limit $2
+	;
+end;
+$_$;
+
+
+ALTER FUNCTION public.fetch_most_popular_users(currentid text, paginationlimit integer) OWNER TO postgres;
 
 --
 -- Name: fetch_searched_add_to_group_users(text, text, text[], integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
@@ -387,13 +409,17 @@ CREATE TABLE sensitive_data.user_password (
 );
 
 
-ALTER TABLE sensitive_data.user_password OWNER to postgres;
+ALTER TABLE sensitive_data.user_password OWNER TO postgres;
 
 --
 -- Data for Name: user_profile; Type: TABLE DATA; Schema: basic_data; Owner: postgres
 --
 
 COPY basic_data.user_profile (user_id, name, username, email, profile_picture_link, date_joined, birth_date, bio, private, verified, suspended, deleted) FROM stdin;
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	developer	developer	developer@gmail.com	https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/f10d6d78-77ef-4cc5-a19a-11ca023e57a4/view?project=648336f2bc96857e5f14&mode=admin	2023-11-26T10:01:09.295Z	2023-11-02 00:00:00.000		f	f	f	f
+f82d2bfd-5a88-49af-ba74-d35cc639eec9	Lewis	lewis	lewisjoe@gmail.com	https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/f82d2bfd-5a88-49af-ba74-d35cc639eec9/view?project=648336f2bc96857e5f14&mode=admin	2023-11-26T14:17:10.198Z	2023-11-08 00:00:00.000	cosplay lover	f	f	f	f
+cef86a8a-c06a-4812-ac3d-e9aee4fd7b19	snsmmssnmssm	snsjsksks	joeclarence04@gmail.com	https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/cef86a8a-c06a-4812-ac3d-e9aee4fd7b19/view?project=648336f2bc96857e5f14&mode=admin	2023-12-01T14:19:18.246Z	2023-12-01 00:00:00.000		f	f	f	f
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	joec	postgres10	joeclarence0510@gmail.com	https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac/view?project=648336f2bc96857e5f14&mode=admin	2023-11-25T23:08:36.392Z	2023-11-09 00:00:00.000	I am a flutter developer with dedication to create magical apps	t	f	f	f
 \.
 
 
@@ -418,6 +444,10 @@ COPY follow_requests_users.follow_request_history (requesting_id, requested_id, 
 --
 
 COPY follow_users.follow_history (following_id, followed_id, follow_time) FROM stdin;
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T22:22:26.057+07:00
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	f82d2bfd-5a88-49af-ba74-d35cc639eec9	2023-12-04T22:30:23.192+07:00
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	2023-12-04T22:51:36.058+07:00
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f82d2bfd-5a88-49af-ba74-d35cc639eec9	2023-12-04T23:09:12.862+07:00
 \.
 
 
@@ -434,6 +464,13 @@ COPY muted_users.mute_history (user_id, muted_id) FROM stdin;
 --
 
 COPY sensitive_data.user_password (user_id, password) FROM stdin;
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	$2b$10$ntI4ArWlkrsSdwb6wYV.cuowMs7rOUk5NtBfvc6p5TdxsZ5/OwFp2
+f10d6d78-77ef-4cc5-a19a-11ca023e57a4	$2b$10$.PKUG.LSKPkaak2jrmLpv.acIGMWw100RDNxavkvR3YoeMXgsUaKG
+f82d2bfd-5a88-49af-ba74-d35cc639eec9	$2b$10$8Dk1LKHW4Y50yIAl/rAT4.YbtSa5zXfLiBX4Nyag1qabfpFsoqy6q
+2772bcdd-0234-4fd4-b5e4-04d490b410f1	$2b$10$RnHVyf/DBJTyVroGozxzj.P3Yo6cCEmTUQ2t3tBrR0j8Feij9Yx4W
+b2b6ef81-3e37-422e-88c2-cad4a0666c2d	$2b$10$4phWoGTLEM8dt.YvJmPW4ONzdTD7N6qevQxN0zzxVzSD94FifhWZ6
+a6deaf2d-d92e-4c63-a763-f0f065a38289	$2b$10$RwyNljkiprL36RMFmhC7gu0DQ82od1TCLQ3r/MOMWt1HnG5aPl2re
+cef86a8a-c06a-4812-ac3d-e9aee4fd7b19	$2b$10$yZ2ng/bQcV.ugbKn4UZSSuDGeUbvs1p59flvHfK5Ng3gE9MBuusSS
 \.
 
 

@@ -17,40 +17,40 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: bookmarks_list; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: bookmarks_list; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA bookmarks_list;
 
 
-ALTER SCHEMA bookmarks_list OWNER TO joec05;
+ALTER SCHEMA bookmarks_list OWNER TO postgres;
 
 --
--- Name: comments_list; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: comments_list; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA comments_list;
 
 
-ALTER SCHEMA comments_list OWNER TO joec05;
+ALTER SCHEMA comments_list OWNER TO postgres;
 
 --
--- Name: likes_list; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: likes_list; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA likes_list;
 
 
-ALTER SCHEMA likes_list OWNER TO joec05;
+ALTER SCHEMA likes_list OWNER TO postgres;
 
 --
--- Name: posts_list; Type: SCHEMA; Schema: -; Owner: joec05
+-- Name: posts_list; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 CREATE SCHEMA posts_list;
 
 
-ALTER SCHEMA posts_list OWNER TO joec05;
+ALTER SCHEMA posts_list OWNER TO postgres;
 
 --
 -- Name: dblink; Type: EXTENSION; Schema: -; Owner: -
@@ -196,6 +196,31 @@ $_$;
 
 
 ALTER FUNCTION public.fetch_feed(currentid text, currentlength integer, paginationlimit integer, username text, ip text, port integer, password text) OWNER TO postgres;
+
+--
+-- Name: fetch_most_popular_posts(text, integer, text, text, integer, text); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.fetch_most_popular_posts(currentid text, paginationlimit integer, username text, ip text, port integer, password text) RETURNS TABLE(post_data json)
+    LANGUAGE plpgsql
+    AS $_$
+declare 
+begin
+	return query 
+	SELECT row_to_json(p) from likes_list.posts as l
+	inner join posts_list.posts_data p on p.post_id = l.post_id
+	where not is_muted_user($1, p.sender, username, IP, PORT, password) 
+	and not is_blocked_user($1, p.sender, username, IP, PORT, password)
+	and not is_blocked_user(p.sender, $1, username, IP, PORT, password) 
+	and is_exists_user($1, p.sender, username, IP, PORT, password)
+	group by p.post_id
+	order by count(l.post_id) desc offset 0 limit $2
+	;
+end;
+$_$;
+
+
+ALTER FUNCTION public.fetch_most_popular_posts(currentid text, paginationlimit integer, username text, ip text, port integer, password text) OWNER TO postgres;
 
 --
 -- Name: fetch_post_bookmarks(text, text, integer, integer, text, text, integer, text); Type: FUNCTION; Schema: public; Owner: postgres
@@ -618,6 +643,7 @@ f10d6d78-77ef-4cc5-a19a-11ca023e57a4	3f3c1cb5-0e4b-41bb-ade1-3610e2e29f06
 f10d6d78-77ef-4cc5-a19a-11ca023e57a4	1dc772f5-a257-4009-895c-1178640d21b7
 f10d6d78-77ef-4cc5-a19a-11ca023e57a4	5c07aa63-4e61-4f7e-93dd-fb3929ae44c2
 f10d6d78-77ef-4cc5-a19a-11ca023e57a4	c06e546c-409e-4c56-b830-76fa0b61025e
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	c06e546c-409e-4c56-b830-76fa0b61025e
 \.
 
 
@@ -633,6 +659,7 @@ f10d6d78-77ef-4cc5-a19a-11ca023e57a4	b91bd8f6-2ccf-4eaa-946c-d14d21741547
 ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	3abb1ba1-e835-4625-9832-5cea326e617b
 ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	11e4bfa7-73dd-47ed-a40f-dfe677fec679
 ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	b7b488ea-de39-46c6-bb97-9d09141ac75c
+ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	b91bd8f6-2ccf-4eaa-946c-d14d21741547
 \.
 
 
@@ -663,6 +690,8 @@ b7b488ea-de39-46c6-bb97-9d09141ac75c	post	#Pillowtalk is best song ever	ea0ba766
 fe8adbfd-7f30-47be-8853-9309e8565032	post	#DuskTillDawn is iconic	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:54:16.420Z	[]	f
 c21e6926-fbf2-4aaa-83f9-13ae2cce7c0e	post	#Westlife is nostalgic	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:54:27.285Z	[]	f
 f3bfd6c9-01a1-4710-9c6e-3a466f18fbf9	post	#Eminem is king of rap	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:54:41.399Z	[]	f
+7abd34f4-9908-40ca-8d43-6ba3118c7ecb	post	okay	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-04T12:57:51.409Z	[{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/21f58fdd-ab18-4dd8-ada2-f49b4ae9b22a/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"21f58fdd-ab18-4dd8-ada2-f49b4ae9b22a"},{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/7460e7a3-cdd5-4560-b51d-217e7f6f8e9b/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"7460e7a3-cdd5-4560-b51d-217e7f6f8e9b"}]	f
+3184c6dc-45e7-4cc9-b1bd-acc560753577	post	lol dfmm	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-04T13:29:45.081Z	[{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/db069e0c-7933-4964-b657-dd87a70a22e7/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"db069e0c-7933-4964-b657-dd87a70a22e7"},{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/f30033a1-7e91-4673-a043-d146bf9eee56/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"f30033a1-7e91-4673-a043-d146bf9eee56"}]	f
 \.
 
 
