@@ -592,11 +592,6 @@ ALTER TABLE posts_list.posts_data OWNER TO postgres;
 --
 
 COPY bookmarks_list.comments (user_id, comment_id, sender, bookmarked_time) FROM stdin;
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	fd49fff4-1709-446a-8b64-0fa19f61aff3	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T18:47:58.773+07:00
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	3f3c1cb5-0e4b-41bb-ade1-3610e2e29f06	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:09:32.624+07:00
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	3f3c1cb5-0e4b-41bb-ade1-3610e2e29f06	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:36:38.049+07:00
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	5c07aa63-4e61-4f7e-93dd-fb3929ae44c2	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:36:45.708+07:00
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	c06e546c-409e-4c56-b830-76fa0b61025e	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:36:50.153+07:00
 \.
 
 
@@ -605,12 +600,6 @@ f10d6d78-77ef-4cc5-a19a-11ca023e57a4	c06e546c-409e-4c56-b830-76fa0b61025e	ea0ba7
 --
 
 COPY bookmarks_list.posts (user_id, post_id, sender, bookmarked_time) FROM stdin;
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2754c2ea-4dd4-4e1e-93eb-fd644f693fc5	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T14:53:33.054+07:00
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	4166e8ad-6218-4c02-9e58-5482df330fdf	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	2023-11-26T18:56:52.149+07:00
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	ccf835e2-eea8-4055-942b-97bf13aba39e	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T21:15:02.688+07:00
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	b91bd8f6-2ccf-4eaa-946c-d14d21741547	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:09:29.715+07:00
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	b91bd8f6-2ccf-4eaa-946c-d14d21741547	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T21:36:36.290+07:00
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	11e4bfa7-73dd-47ed-a40f-dfe677fec679	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T21:33:32.165+07:00
 \.
 
 
@@ -619,16 +608,6 @@ ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	11e4bfa7-73dd-47ed-a40f-dfe677fec679	ea0ba7
 --
 
 COPY comments_list.comments_data (comment_id, type, content, sender, upload_time, medias_datas, parent_post_type, parent_post_id, parent_post_sender, deleted) FROM stdin;
-ee2e54c1-5ea4-4089-8f1d-05544d452e2c	comment	pk2	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:18.459Z	[]	post	33528665-7649-4de4-b973-a82c33315e78	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
-fd49fff4-1709-446a-8b64-0fa19f61aff3	comment	ok3	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:23.405Z	[]	comment	d7f75f76-c88b-491a-9626-39412853bd6f	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
-842b31cc-f388-4fd8-a77a-96e533cee06c	comment	lork	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:28.557Z	[]	comment	fd49fff4-1709-446a-8b64-0fa19f61aff3	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
-d7f75f76-c88b-491a-9626-39412853bd6f	comment	ok2	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:10.616Z	[]	post	2754c2ea-4dd4-4e1e-93eb-fd644f693fc5	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	t
-c8110200-6d10-4670-888d-a802ac96e046	comment	pep talk	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:10:20.581Z	[]	post	7e801c97-2dd2-4344-bc06-2a9bf3756428	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
-4552de13-3004-408f-b9e8-0127b6382c96	comment	frocg	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:10:59.792Z	[]	post	3abb1ba1-e835-4625-9832-5cea326e617b	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	f
-c06e546c-409e-4c56-b830-76fa0b61025e	comment	hutuer	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:11:25.657Z	[]	post	3abb1ba1-e835-4625-9832-5cea326e617b	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	f
-5c07aa63-4e61-4f7e-93dd-fb3929ae44c2	comment	pam	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:12:02.177Z	[]	comment	c06e546c-409e-4c56-b830-76fa0b61025e	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
-1dc772f5-a257-4009-895c-1178640d21b7	comment	exactly bro	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:39:24.509Z	[]	post	3abb1ba1-e835-4625-9832-5cea326e617b	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	f
-3f3c1cb5-0e4b-41bb-ade1-3610e2e29f06	comment	wow	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:39:39.042Z	[]	comment	1dc772f5-a257-4009-895c-1178640d21b7	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	f
 \.
 
 
@@ -637,13 +616,6 @@ c06e546c-409e-4c56-b830-76fa0b61025e	comment	hutuer	ea0ba766-8fab-42aa-ad3d-6cd5
 --
 
 COPY likes_list.comments (user_id, comment_id) FROM stdin;
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	fd49fff4-1709-446a-8b64-0fa19f61aff3
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	ee2e54c1-5ea4-4089-8f1d-05544d452e2c
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	3f3c1cb5-0e4b-41bb-ade1-3610e2e29f06
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	1dc772f5-a257-4009-895c-1178640d21b7
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	5c07aa63-4e61-4f7e-93dd-fb3929ae44c2
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	c06e546c-409e-4c56-b830-76fa0b61025e
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	c06e546c-409e-4c56-b830-76fa0b61025e
 \.
 
 
@@ -652,14 +624,6 @@ ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	c06e546c-409e-4c56-b830-76fa0b61025e
 --
 
 COPY likes_list.posts (user_id, post_id) FROM stdin;
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2754c2ea-4dd4-4e1e-93eb-fd644f693fc5
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	10e95832-6762-4bf3-9d0d-1de6047111b8
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	00850e38-8fd2-42db-955f-a5b1d7eae9d4
-f10d6d78-77ef-4cc5-a19a-11ca023e57a4	b91bd8f6-2ccf-4eaa-946c-d14d21741547
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	3abb1ba1-e835-4625-9832-5cea326e617b
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	11e4bfa7-73dd-47ed-a40f-dfe677fec679
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	b7b488ea-de39-46c6-bb97-9d09141ac75c
-ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	b91bd8f6-2ccf-4eaa-946c-d14d21741547
 \.
 
 
@@ -668,30 +632,6 @@ ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	b91bd8f6-2ccf-4eaa-946c-d14d21741547
 --
 
 COPY posts_list.posts_data (post_id, type, content, sender, upload_time, medias_datas, deleted) FROM stdin;
-2754c2ea-4dd4-4e1e-93eb-fd644f693fc5	post	ok	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:00.282Z	[]	f
-33528665-7649-4de4-b973-a82c33315e78	post	pk	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T06:56:04.927Z	[]	f
-ccf835e2-eea8-4055-942b-97bf13aba39e	post	@developer pakyi	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-26T11:31:16.754Z	[]	f
-4166e8ad-6218-4c02-9e58-5482df330fdf	post	lo	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	2023-11-26T11:56:47.095Z	[]	f
-3abb1ba1-e835-4625-9832-5cea326e617b	post	guitar 	f10d6d78-77ef-4cc5-a19a-11ca023e57a4	2023-11-26T15:09:30.643Z	[{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/5a05c358-49f6-41fd-b965-7303174a0706/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"5a05c358-49f6-41fd-b965-7303174a0706"}]	f
-00850e38-8fd2-42db-955f-a5b1d7eae9d4	post	ffff	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-27T15:00:36.440Z	[]	f
-a193f3b8-d78b-4b40-9a22-59a5ae9f6578	post		ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-27T15:06:19.604Z	[]	t
-10e95832-6762-4bf3-9d0d-1de6047111b8	post	in the place 	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-27T23:51:58.531Z	[]	f
-7e801c97-2dd2-4344-bc06-2a9bf3756428	post	PILLOWTALK	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T13:09:57.438Z	[]	f
-04686e3e-c4b4-4219-8e51-085abd466aaf	post		cef86a8a-c06a-4812-ac3d-e9aee4fd7b19	2023-12-01T14:25:23.233Z	[{"mediaType":"video","url":"https://firebasestorage.googleapis.com/v0/b/flutter-social-media-app-7aac7.appspot.com/o/videos%2Fcef86a8a-c06a-4812-ac3d-e9aee4fd7b19%2F8de7dad5-3fab-4c27-83fa-83087dadf1cf?alt=media&token=742f505c-efa3-44ce-bbcf-edbf3609da4f","storagePath":"/cef86a8a-c06a-4812-ac3d-e9aee4fd7b19/8de7dad5-3fab-4c27-83fa-83087dadf1cf"}]	f
-9b2ffa6e-55df-4e5e-ab54-0f9303e3528b	post	pol	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-11-30T14:45:18.663Z	[{"mediaType":"video","url":"https://firebasestorage.googleapis.com/v0/b/flutter-social-media-app-7aac7.appspot.com/o/videos%2Fea0ba766-8fab-42aa-ad3d-6cd5b0e18eac%2F91f81c72-a4ee-4adb-8298-6530889ccd26?alt=media&token=9543d5cc-6e63-4663-ba3c-195211bfc8f2","storagePath":"/ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac/91f81c72-a4ee-4adb-8298-6530889ccd26"}]	t
-b91bd8f6-2ccf-4eaa-946c-d14d21741547	post	The UEFA Europa League (previously known as the UEFA Cup, abbreviated as UEL, or sometimes, UEFA EL) is an annual football club competition organised since 1971 by the Union of European Football Associations (UEFA) for eligible European football clubs. It is the second-tier competition of European c	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-02T13:59:04.620Z	[]	f
-3bdd7123-e18b-4e7a-84a2-c2af27bce782	post	hello, my name is ioem.\n\nThe UEFA Europa League is an annual football club competition organised since 1971 by the Union of European Football Associations for eligible European football clubs. It is the 	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T09:20:21.264Z	[]	f
-5e290c95-4dc2-4a22-8ea8-d7a9db13a68c	post	The UEFA Europa League is an annual football club competition organised since 1971 by the Union of European Football Associations for eligible European football clubs. It is the \n\nThe UEFA Europa League is an annual football club competition organised since 1971 by the Union of European Football Ass	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T11:16:16.162Z	[{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/1afdb1b1-6ac8-4a3a-84b7-f681944effe0/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"1afdb1b1-6ac8-4a3a-84b7-f681944effe0"}]	f
-1dc74b2c-b8a6-49ef-befb-0b0a6e5db294	post	this is a posr	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T11:39:40.538Z	[]	f
-11e4bfa7-73dd-47ed-a40f-dfe677fec679	post	bencong but they t\n\n#one\n\n#two\n\n#three\n\n#four\n\n#five	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:26:54.530Z	[]	f
-cd6a7c94-7c9d-4851-9355-aa3c057da7c7	post	#two is 2	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:51:59.367Z	[]	f
-7bbed87b-185b-484c-b234-df1b36820a2b	post	#OneDirection is best band ever	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:53:42.559Z	[]	f
-b7b488ea-de39-46c6-bb97-9d09141ac75c	post	#Pillowtalk is best song ever	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:53:57.582Z	[]	f
-fe8adbfd-7f30-47be-8853-9309e8565032	post	#DuskTillDawn is iconic	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:54:16.420Z	[]	f
-c21e6926-fbf2-4aaa-83f9-13ae2cce7c0e	post	#Westlife is nostalgic	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:54:27.285Z	[]	f
-f3bfd6c9-01a1-4710-9c6e-3a466f18fbf9	post	#Eminem is king of rap	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-03T14:54:41.399Z	[]	f
-7abd34f4-9908-40ca-8d43-6ba3118c7ecb	post	okay	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-04T12:57:51.409Z	[{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/21f58fdd-ab18-4dd8-ada2-f49b4ae9b22a/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"21f58fdd-ab18-4dd8-ada2-f49b4ae9b22a"},{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/7460e7a3-cdd5-4560-b51d-217e7f6f8e9b/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"7460e7a3-cdd5-4560-b51d-217e7f6f8e9b"}]	f
-3184c6dc-45e7-4cc9-b1bd-acc560753577	post	lol dfmm	ea0ba766-8fab-42aa-ad3d-6cd5b0e18eac	2023-12-04T13:29:45.081Z	[{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/db069e0c-7933-4964-b657-dd87a70a22e7/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"db069e0c-7933-4964-b657-dd87a70a22e7"},{"mediaType":"image","url":"https://cloud.appwrite.io/v1/storage/buckets/64842b019dcd3146ae00/files/f30033a1-7e91-4673-a043-d146bf9eee56/view?project=648336f2bc96857e5f14&mode=admin","storagePath":"f30033a1-7e91-4673-a043-d146bf9eee56"}]	f
 \.
 
 
